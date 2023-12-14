@@ -2,4 +2,4 @@
 
 Grupo: Nivea Stelmam e Priscilla Melo.
 
-Objetivo: Desevolver um aplicativo em flutter que apresente navegação com abas.
+Objetivo: Desevolver um aplicativo em flutter que apresente um layout de navegação com abas.
