@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:terceira_prova/pages/tela_home.dart';
 import 'package:terceira_prova/pages/tela_sobre.dart';
+import 'package:terceira_prova/pages/tela_captura.dart';
 
-void main() {
-  runApp(const MaterialAppHome());
+import 'dao/database.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final db = await $FloorAppDatabase.databaseBuilder('app_database.db').build();
+  runApp(MaterialAppHome(db: db));
 }
 
 class MaterialAppHome extends StatelessWidget {
-  const MaterialAppHome({Key? key});
+  MaterialAppHome({Key? key, required this.db}) : super(key: key);
+  final AppDatabase db;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +27,7 @@ class MaterialAppHome extends StatelessWidget {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("Pokemon"),
+            title: const Text("Pokemon App"),
             backgroundColor: Colors.purple, // Escolhe uma cor Priscillaaa!!!
             bottom: const TabBar(
               tabs: [
@@ -30,12 +36,12 @@ class MaterialAppHome extends StatelessWidget {
                   icon: Icon(Icons.home),
                 ),
                 Tab(
-                  text: "Sobre Nós",
-                  icon: Icon(Icons.accessibility_new),
+                  text: "Capturar",
+                  icon: Icon(Icons.catching_pokemon_outlined),
                 ),
                 Tab(
-                  text: "aba 3",
-                  icon: Icon(Icons.access_alarm),
+                  text: "Sobre Nós",
+                  icon: Icon(Icons.info),
                 ),
               ],
             ),
@@ -43,23 +49,12 @@ class MaterialAppHome extends StatelessWidget {
           body: TabBarView(
             children: [
               TelaHome(),
+              TelaCaptura(),
               TelaSobre(),
-              Aba3(),
             ],
           ),
         ),
       ),
     );
-  }
-}
-
-class Aba3 extends StatelessWidget {
-  const Aba3({
-    Key? key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Center();
   }
 }
