@@ -42,7 +42,19 @@ class _TelaCapturaState extends State<TelaCaptura> {
           await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$id/'));
       if (response.statusCode == 200) {
         Map<String, dynamic> pokemonData = json.decode(response.body);
+        // Extrai os dados desejados da resposta da API
+        final String imageUrl = pokemonData['sprites']['front_default'];
+        final int peso = pokemonData['weight'];
+        final int altura = pokemonData['height'];
+
+        // pega o primeiro "tipo" já que "tipo" é uma lista
+        final String tipo = pokemonData['types'][0]['type']['name'];
         setState(() {
+          pokemonData['imageUrl'] = imageUrl;
+          pokemonData['peso'] = peso;
+          pokemonData['altura'] = altura;
+          pokemonData['tipo'] = tipo;
+
           pokemons.add(pokemonData);
         });
       } else {
@@ -82,18 +94,46 @@ class _TelaCapturaState extends State<TelaCaptura> {
   Widget _buildPokemonItem(Map<String, dynamic> pokemon) {
     int pokemonId = pokemon['id'];
 
-    return ListTile(
-      title: Text(pokemon['name']),
-      subtitle: Text('ID: $pokemonId'),
-      trailing: ElevatedButton(
-        onPressed: _isPokemonCapturado(pokemonId)
-            ? null // Desativa o botão se o Pokémon já estiver capturado
-            : () => _capturarPokemon(pokemonId), // Chama a função de captura
-        style: ElevatedButton.styleFrom(
-          backgroundColor:
-              _isPokemonCapturado(pokemonId) ? Colors.grey : Colors.purple,
+    // adicionei os pokemons a cards
+    return Card(
+      elevation: 4, // sombra do card
+      margin: EdgeInsets.all(8), // margem ao redor do card
+      child: ListTile(
+        contentPadding: EdgeInsets.all(16), // preenchimento interno ao ListTile
+        title: Text(
+          pokemon['name'],
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        child: Icon(Icons.catching_pokemon_outlined, color: Colors.white),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 8), // espaço entre o título e os detalhes
+            Text('ID: $pokemonId'),
+            Text('Peso: ${pokemon['peso']}'),
+            Text('Altura: ${pokemon['altura']}'),
+            Text('Tipo: ${pokemon['tipo']}'),
+          ],
+        ),
+        leading: Image.network(
+          pokemon['imageUrl'],
+          width: 80,
+          height: 80,
+          fit: BoxFit.cover,
+        ),
+        trailing: ElevatedButton(
+          onPressed: _isPokemonCapturado(pokemonId)
+              ? null
+              : () => _capturarPokemon(pokemonId),
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.all(8), //  preenchimento ao botão
+            backgroundColor:
+                _isPokemonCapturado(pokemonId) ? Colors.grey : Colors.purple,
+          ),
+          child: Icon(Icons.catching_pokemon_outlined, color: Colors.white),
+        ),
       ),
     );
   }
