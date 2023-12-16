@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class TelaSobre extends StatelessWidget {
-  const TelaSobre({super.key});
+  const TelaSobre({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Sobre Nós"),
+        backgroundColor: Colors.purple,
       ),
       body: const Center(
         child: Column(

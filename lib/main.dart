@@ -7,15 +7,34 @@ import 'package:terceira_prova/pages/tela_captura.dart';
 
 import 'dao/database.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final database =
       await $FloorAppDatabase.databaseBuilder('flutter_database.db').build();
   final pokemonDao = database.pokemonDao;
 
-  runApp(MaterialAppHome(
+  runApp(MyApp(
     pokemonDao: pokemonDao,
   ));
+}
+
+class MyApp extends StatelessWidget {
+  final PokemonDao pokemonDao;
+
+  const MyApp({Key? key, required this.pokemonDao}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.purple[50],
+      ),
+      home: MaterialAppHome(
+        pokemonDao: pokemonDao,
+      ),
+    );
+  }
 }
 
 class MaterialAppHome extends StatelessWidget {
@@ -24,53 +43,47 @@ class MaterialAppHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor:
-            Colors.purple[50], // Escolhe uma cor Priscillaaa!!!
-      ),
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text("Pokemon App"),
-            backgroundColor: Colors.purple,
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const TelaSobre(),
-                      ),
-                    );
-                  },
-                  icon: Icon(Icons.info))
-            ],
-            bottom: const TabBar(
-              tabs: [
-                Tab(
-                  text: "Home",
-                  icon: Icon(Icons.home),
-                ),
-                Tab(
-                  text: "Capturar",
-                  icon: Icon(Icons.catching_pokemon_outlined),
-                ),
-                Tab(
-                  text: "Meus Pokemons",
-                  icon: Icon(Icons.my_library_books),
-                ),
-              ],
-            ),
-          ),
-          body: TabBarView(
-            children: [
-              TelaHome(),
-              TelaCaptura(pokemonDao: pokemonDao),
-              TelaPokemonCapturado(pokemonDao: pokemonDao),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Pokemon App"),
+          backgroundColor: Colors.purple,
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const TelaSobre(),
+                  ),
+                );
+              },
+              icon: Icon(Icons.info),
+            )
+          ],
+          bottom: const TabBar(
+            tabs: [
+              Tab(
+                text: "Home",
+                icon: Icon(Icons.home),
+              ),
+              Tab(
+                text: "Capturar",
+                icon: Icon(Icons.catching_pokemon_outlined),
+              ),
+              Tab(
+                text: "Meus Pokemons",
+                icon: Icon(Icons.my_library_books),
+              ),
             ],
           ),
+        ),
+        body: TabBarView(
+          children: [
+            TelaHome(),
+            TelaCaptura(pokemonDao: pokemonDao),
+            TelaPokemonCapturado(pokemonDao: pokemonDao),
+          ],
         ),
       ),
     );
