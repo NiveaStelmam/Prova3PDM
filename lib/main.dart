@@ -4,7 +4,6 @@ import 'package:terceira_prova/pages/tela_home.dart';
 import 'package:terceira_prova/pages/tela_pokemon_capturado.dart';
 import 'package:terceira_prova/pages/tela_sobre.dart';
 import 'package:terceira_prova/pages/tela_captura.dart';
-import 'package:terceira_prova/pages/tela_soltar_pokemon.dart';
 
 import 'dao/database.dart';
 
@@ -60,10 +59,6 @@ class MaterialAppHome extends StatelessWidget {
                 ),
                 Tab(
                   text: "Meus Pokemons",
-                  icon: Icon(Icons.my_library_books),
-                ),
-                Tab(
-                  text: "Soltar Pokemons",
                   icon: Icon(Icons.my_library_books),
                 ),
               ],
