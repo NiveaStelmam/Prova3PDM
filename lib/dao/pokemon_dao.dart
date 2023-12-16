@@ -8,7 +8,7 @@ abstract class PokemonDao {
   Future<List<Pokemon>> findAllPokemons(); // listar todos
 
   @Query('SELECT * FROM Pokemon WHERE id = :id') // listar por id
-  Future<Pokemon?> findPokemonById(int id);
+  Stream<Pokemon?> findPokemonById(int id);
 
   @Insert(onConflict: OnConflictStrategy.replace) // criar
   Future<void> insertPokemon(Pokemon pokemon);

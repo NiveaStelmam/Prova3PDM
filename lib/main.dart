@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:terceira_prova/dao/pokemon_dao.dart';
 import 'package:terceira_prova/pages/tela_home.dart';
+import 'package:terceira_prova/pages/tela_pokemon_capturado.dart';
 import 'package:terceira_prova/pages/tela_sobre.dart';
 import 'package:terceira_prova/pages/tela_captura.dart';
 
@@ -7,13 +9,18 @@ import 'dao/database.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final db = await $FloorAppDatabase.databaseBuilder('app_database.db').build();
-  runApp(MaterialAppHome(db: db));
+  final database =
+      await $FloorAppDatabase.databaseBuilder('flutter_database.db').build();
+  final pokemonDao = database.pokemonDao;
+
+  runApp(MaterialAppHome(
+    pokemonDao: pokemonDao,
+  ));
 }
 
 class MaterialAppHome extends StatelessWidget {
-  MaterialAppHome({Key? key, required this.db}) : super(key: key);
-  final AppDatabase db;
+  MaterialAppHome({Key? key, required this.pokemonDao}) : super(key: key);
+  final PokemonDao pokemonDao;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +35,18 @@ class MaterialAppHome extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: const Text("Pokemon App"),
-            backgroundColor: Colors.purple, // Escolhe uma cor Priscillaaa!!!
+            backgroundColor: Colors.purple,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const TelaSobre(),
+                      ),
+                    );
+                  },
+                  icon: Icon(Icons.info))
+            ],
             bottom: const TabBar(
               tabs: [
                 Tab(
@@ -40,8 +58,8 @@ class MaterialAppHome extends StatelessWidget {
                   icon: Icon(Icons.catching_pokemon_outlined),
                 ),
                 Tab(
-                  text: "Sobre Nós",
-                  icon: Icon(Icons.info),
+                  text: "Meus Pokemon",
+                  icon: Icon(Icons.my_library_books),
                 ),
               ],
             ),
@@ -49,8 +67,8 @@ class MaterialAppHome extends StatelessWidget {
           body: TabBarView(
             children: [
               TelaHome(),
-              TelaCaptura(),
-              TelaSobre(),
+              TelaCaptura(pokemonDao: pokemonDao),
+              TelaPokemonCapturado(),
             ],
           ),
         ),

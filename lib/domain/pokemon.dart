@@ -3,7 +3,7 @@ import 'package:floor/floor.dart';
 @entity
 class Pokemon {
   @PrimaryKey(autoGenerate: true)
-  final int? id;
+  final int id;
 
   final String nome;
   final String imageUrl; // front_default
@@ -12,7 +12,7 @@ class Pokemon {
   final String tipo;
 
   Pokemon({
-    this.id,
+    required this.id,
     required this.nome,
     required this.imageUrl,
     required this.peso, // weight

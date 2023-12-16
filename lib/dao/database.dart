@@ -8,5 +8,5 @@ part 'database.g.dart';
 
 @Database(version: 1, entities: [Pokemon])
 abstract class AppDatabase extends FloorDatabase {
-  PokemonDao get Pokemon;
+  PokemonDao get pokemonDao;
 }
