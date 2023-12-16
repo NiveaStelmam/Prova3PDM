@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:terceira_prova/dao/pokemon_dao.dart';
 import 'package:terceira_prova/domain/pokemon.dart';
 
+import 'tela_detalhes_pokemon.dart';
+
 class TelaPokemonCapturado extends StatefulWidget {
   final PokemonDao pokemonDao;
 
@@ -68,35 +70,36 @@ class PokemonCapturadoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      margin: EdgeInsets.all(8),
-      child: ListTile(
-        contentPadding: EdgeInsets.all(16),
-        title: Text(
-          pokemon.nome,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+    return GestureDetector(
+      child: Card(
+        elevation: 4,
+        margin: EdgeInsets.all(8),
+        child: ListTile(
+          contentPadding: EdgeInsets.all(16),
+          title: Text(
+            pokemon.nome,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 8),
-            Text('ID: ${pokemon.id.toString()}'),
-            Text('Peso: ${pokemon.peso.toString()}'),
-            Text('Altura: ${pokemon.altura.toString()}'),
-            Text('Tipo: ${pokemon.tipo.toString()}'),
-          ],
-        ),
-        leading: Image.network(
-          pokemon.imageUrl,
-          width: 80,
-          height: 80,
-          fit: BoxFit.cover,
-        ),
-        /*trailing: ElevatedButton(
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 8),
+              Text('ID: ${pokemon.id.toString()}'),
+              Text('Peso: ${pokemon.peso.toString()}'),
+              Text('Altura: ${pokemon.altura.toString()}'),
+              Text('Tipo: ${pokemon.tipo.toString()}'),
+            ],
+          ),
+          leading: Image.network(
+            pokemon.imageUrl,
+            width: 80,
+            height: 80,
+            fit: BoxFit.cover,
+          ),
+          /*trailing: ElevatedButton(
           onPressed: () async {
             await dao.deletePokemon(pokemon);
           },
@@ -106,7 +109,20 @@ class PokemonCapturadoItem extends StatelessWidget {
           ),
           child: Icon(Icons.delete, color: Colors.white),
         ),*/
+        ),
       ),
+      onTap: () {
+        print(pokemon.nome);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => TelaDetalhesPokemon(id: pokemon.id, dao: dao),
+          ),
+        );
+      },
+      onLongPress: () {
+        print(pokemon.tipo);
+        dao.deletePokemon(pokemon);
+      },
     );
   }
 }
