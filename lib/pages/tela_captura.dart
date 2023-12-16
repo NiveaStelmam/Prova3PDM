@@ -143,10 +143,10 @@ class PokemonItem extends StatelessWidget {
           onPressed: () {
             print('ENTROU');
             dao.insertPokemon(pokemon);
-            /* ElevatedButton.styleFrom(
+            ElevatedButton.styleFrom(
               padding: EdgeInsets.all(8), //  preenchimento ao botão
               backgroundColor: Colors.grey,
-            ); */
+            );
           },
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.all(8), //  preenchimento ao botão

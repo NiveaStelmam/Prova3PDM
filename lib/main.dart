@@ -4,6 +4,7 @@ import 'package:terceira_prova/pages/tela_home.dart';
 import 'package:terceira_prova/pages/tela_pokemon_capturado.dart';
 import 'package:terceira_prova/pages/tela_sobre.dart';
 import 'package:terceira_prova/pages/tela_captura.dart';
+import 'package:terceira_prova/pages/tela_soltar_pokemon.dart';
 
 import 'dao/database.dart';
 
@@ -58,7 +59,11 @@ class MaterialAppHome extends StatelessWidget {
                   icon: Icon(Icons.catching_pokemon_outlined),
                 ),
                 Tab(
-                  text: "Meus Pokemon",
+                  text: "Meus Pokemons",
+                  icon: Icon(Icons.my_library_books),
+                ),
+                Tab(
+                  text: "Soltar Pokemons",
                   icon: Icon(Icons.my_library_books),
                 ),
               ],
@@ -68,7 +73,7 @@ class MaterialAppHome extends StatelessWidget {
             children: [
               TelaHome(),
               TelaCaptura(pokemonDao: pokemonDao),
-              TelaPokemonCapturado(),
+              TelaPokemonCapturado(pokemonDao: pokemonDao),
             ],
           ),
         ),
