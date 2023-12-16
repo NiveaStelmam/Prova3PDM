@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:terceira_prova/dao/pokemon_dao.dart';
 import 'package:terceira_prova/domain/pokemon.dart';
+import 'package:terceira_prova/pages/tela_solta_pokemon.dart';
 
 import 'tela_detalhes_pokemon.dart';
 
@@ -15,21 +16,21 @@ class TelaPokemonCapturado extends StatefulWidget {
 }
 
 class _TelaPokemonCapturadoState extends State<TelaPokemonCapturado> {
-  late Future<List<Pokemon>> capturedPokemonList;
+  late Future<List<Pokemon>> _capturedPokemonList;
 
   @override
   void initState() {
     super.initState();
-    capturedPokemonList = widget.pokemonDao.findAllPokemons();
-    capturedPokemonList.then((pokemons) {
+    _capturedPokemonList = widget.pokemonDao.findAllPokemons();
+    /* _capturedPokemonList.then((pokemons) {
       print('Total de pokemons capturados: ${pokemons.length}');
-    });
+    }); */
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: capturedPokemonList,
+      future: _capturedPokemonList,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
@@ -99,16 +100,6 @@ class PokemonCapturadoItem extends StatelessWidget {
             height: 80,
             fit: BoxFit.cover,
           ),
-          /*trailing: ElevatedButton(
-          onPressed: () async {
-            await dao.deletePokemon(pokemon);
-          },
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.all(8),
-            backgroundColor: Colors.red,
-          ),
-          child: Icon(Icons.delete, color: Colors.white),
-        ),*/
         ),
       ),
       onTap: () {
@@ -121,7 +112,11 @@ class PokemonCapturadoItem extends StatelessWidget {
       },
       onLongPress: () {
         print(pokemon.tipo);
-        dao.deletePokemon(pokemon);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => TelaSoltarPokemon(id: pokemon.id, dao: dao),
+          ),
+        );
       },
     );
   }

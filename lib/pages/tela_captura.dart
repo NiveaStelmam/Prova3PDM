@@ -102,13 +102,19 @@ class _TelaCapturaState extends State<TelaCaptura> {
   }
 }
 
-class PokemonItem extends StatelessWidget {
+class PokemonItem extends StatefulWidget {
   final Pokemon pokemon;
   final PokemonDao dao;
 
   PokemonItem({Key? key, required this.pokemon, required this.dao})
       : super(key: key);
 
+  @override
+  State<PokemonItem> createState() => _PokemonItemState();
+}
+
+class _PokemonItemState extends State<PokemonItem> {
+  Color _colorButton = Colors.purple;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -117,7 +123,7 @@ class PokemonItem extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.all(16), // preenchimento interno ao ListTile
         title: Text(
-          pokemon.nome,
+          widget.pokemon.nome,
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -127,14 +133,14 @@ class PokemonItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 8), // espaço entre o título e os detalhes
-            Text('ID: ${pokemon.id.toString()}'),
-            Text('Peso: ${pokemon.peso.toString()}'),
-            Text('Altura: ${pokemon.altura.toString()}'),
-            Text('Tipo: ${pokemon.tipo.toString()}'),
+            Text('ID: ${widget.pokemon.id.toString()}'),
+            Text('Peso: ${widget.pokemon.peso.toString()}'),
+            Text('Altura: ${widget.pokemon.altura.toString()}'),
+            Text('Tipo: ${widget.pokemon.tipo.toString()}'),
           ],
         ),
         leading: Image.network(
-          pokemon.imageUrl,
+          widget.pokemon.imageUrl,
           width: 80,
           height: 80,
           fit: BoxFit.cover,
@@ -142,17 +148,15 @@ class PokemonItem extends StatelessWidget {
         trailing: ElevatedButton(
           onPressed: () {
             print('ENTROU');
-            dao.insertPokemon(pokemon);
-            ElevatedButton.styleFrom(
-              padding: EdgeInsets.all(8), //  preenchimento ao botão
-              backgroundColor: Colors.grey,
-            );
+            widget.dao.insertPokemon(widget.pokemon);
+            setState(() {
+              _colorButton = Colors.grey;
+            });
           },
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.all(8), //  preenchimento ao botão
-            backgroundColor: Colors.purple,
+          child: Icon(Icons.catching_pokemon),
+          style: ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll(_colorButton),
           ),
-          child: Icon(Icons.catching_pokemon_outlined, color: Colors.white),
         ),
       ),
     );
