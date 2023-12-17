@@ -29,7 +29,7 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
           Pokemon _pokemon = snapshot.data!;
           return Scaffold(
             appBar: AppBar(
-              title: Text("Detalhes do Pokemon"),
+              title: Text("Soltar Pokemon"),
               backgroundColor: Colors.purple,
             ),
             body: Center(
@@ -82,15 +82,20 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
                           minimumSize: MaterialStatePropertyAll(Size(54, 48)),
                         ),
                         onPressed: () {
-                          widget.dao.deletePokemon(_pokemon);
-                          setState(() {
-                            widget.capturedPokemonList =
-                                widget.dao.findAllPokemons();
+                          widget.dao.deletePokemon(_pokemon).then((_) {
+                            setState(() {
+                              // Atualizar a lista de Pokémon capturados
+                              widget.capturedPokemonList =
+                                  widget.dao.findAllPokemons();
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Pokemon solto!')),
+                            );
+                            Navigator.pop(context, widget.capturedPokemonList);
+                          }).catchError((error) {
+                            print('Erro ao deletar o Pokémon: $error');
+                            // Lógica para tratar o erro, se necessário
                           });
-                          Navigator.pop(context);
-                          SnackBar(
-                            content: Text("Pokemon solto!"),
-                          );
                         },
                         child: Text("Confirmar"),
                       ),

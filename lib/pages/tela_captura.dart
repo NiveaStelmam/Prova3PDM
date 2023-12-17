@@ -34,39 +34,48 @@ class _TelaCapturaState extends State<TelaCaptura> {
     var connectivityResult = await Connectivity().checkConnectivity();
     setState(() {
       isConnected = connectivityResult != ConnectivityResult.none;
+      pokemonListAPI = _sortearPokemons();
     });
-
-    if (isConnected) {
-      _sortearPokemons();
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: pokemonListAPI,
-        builder: (context, snapshot) {
-          return snapshot.hasData
-              ? Scaffold(
-                  body: isConnected
-                      ? ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            return PokemonItem(
-                              pokemon: snapshot.data![index],
-                              dao: widget.pokemonDao,
-                            );
-                          },
-                        )
-                      : Center(
-                          child: Text(
-                              'Sem conexão com a internet. Conecte-se para visualizar os Pokémons.'),
-                        ),
-                )
-              : Center(
-                  child: CircularProgressIndicator(),
-                );
-        });
+      future: pokemonListAPI,
+      builder: (context, snapshot) {
+        return snapshot.hasData && isConnected
+            ? Scaffold(
+                body: ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  return PokemonItem(
+                    pokemon: snapshot.data![index],
+                    dao: widget.pokemonDao,
+                  );
+                },
+              ))
+            : !isConnected
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                            'Sem conexão com a internet. Conecte-se para visualizar os Pokémons.'),
+                        SizedBox(height: 16),
+                        ElevatedButton(
+                            onPressed: () => _verificarConexao(),
+                            child: Text("Atualize a conexão"),
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.purple))),
+                      ],
+                    ),
+                  )
+                : Center(
+                    child: CircularProgressIndicator(),
+                  );
+      },
+    );
   }
 
   Future<List<Pokemon>> _sortearPokemons() async {
@@ -133,10 +142,10 @@ class _PokemonItemState extends State<PokemonItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 8), // espaço entre o título e os detalhes
-            Text('ID: ${widget.pokemon.id.toString()}'),
-            Text('Peso: ${widget.pokemon.peso.toString()}'),
-            Text('Altura: ${widget.pokemon.altura.toString()}'),
-            Text('Tipo: ${widget.pokemon.tipo.toString()}'),
+            Text('ID: ${widget.pokemon.id}'),
+            Text('Peso: ${widget.pokemon.peso}'),
+            Text('Altura: ${widget.pokemon.altura}'),
+            Text('Tipo: ${widget.pokemon.tipo}'),
           ],
         ),
         leading: Image.network(
@@ -147,7 +156,6 @@ class _PokemonItemState extends State<PokemonItem> {
         ),
         trailing: ElevatedButton(
           onPressed: () {
-            print('ENTROU');
             widget.dao.insertPokemon(widget.pokemon);
             setState(() {
               _colorButton = Colors.grey;

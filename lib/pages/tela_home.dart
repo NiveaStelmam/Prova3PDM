@@ -17,7 +17,7 @@ class TelaHome extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'Explore as abas para descobrir mais sobre os Pokemons.',
+              'Explore as abas para descobrir mais sobre os Pokemon',
               style: TextStyle(fontSize: 16),
               textAlign: TextAlign.center,
             ),

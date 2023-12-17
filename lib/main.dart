@@ -72,8 +72,8 @@ class MaterialAppHome extends StatelessWidget {
                 icon: Icon(Icons.catching_pokemon_outlined),
               ),
               Tab(
-                text: "Meus Pokemons",
-                icon: Icon(Icons.my_library_books),
+                text: "Meus Pokemon",
+                icon: Icon(Icons.list),
               ),
             ],
           ),

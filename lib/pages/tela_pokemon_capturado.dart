@@ -21,7 +21,10 @@ class _TelaPokemonCapturadoState extends State<TelaPokemonCapturado> {
   @override
   void initState() {
     super.initState();
-    _capturedPokemonList = widget.pokemonDao.findAllPokemons();
+    setState(() {
+      _capturedPokemonList = widget.pokemonDao.findAllPokemons();
+    });
+    //_capturedPokemonList = widget.pokemonDao.findAllPokemons();
     /* _capturedPokemonList.then((pokemons) {
       print('Total de pokemons capturados: ${pokemons.length}');
     }); */
