@@ -92,9 +92,6 @@ class PokemonCapturadoItem extends StatelessWidget {
             children: [
               SizedBox(height: 8),
               Text('ID: ${pokemon.id.toString()}'),
-              Text('Peso: ${pokemon.peso.toString()}'),
-              Text('Altura: ${pokemon.altura.toString()}'),
-              Text('Tipo: ${pokemon.tipo.toString()}'),
             ],
           ),
           leading: Image.network(

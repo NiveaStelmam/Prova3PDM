@@ -143,9 +143,6 @@ class _PokemonItemState extends State<PokemonItem> {
           children: [
             SizedBox(height: 8), // espaço entre o título e os detalhes
             Text('ID: ${widget.pokemon.id}'),
-            Text('Peso: ${widget.pokemon.peso}'),
-            Text('Altura: ${widget.pokemon.altura}'),
-            Text('Tipo: ${widget.pokemon.tipo}'),
           ],
         ),
         leading: Image.network(
