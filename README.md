@@ -10,5 +10,5 @@ Objetivos:
 - Capturar pokemons
 - Exibir os pokemons capturados
 - Exibir detalhes sobre os pokemon capturados
-- Soltar pokemnos
+- Soltar pokemons
 - Exibir uma tela com infoirmações sobre os desenvolvedores
