@@ -55,6 +55,21 @@ class _TelaDetalhesPokemonState extends State<TelaDetalhesPokemon> {
                     height: 24,
                   ),
                   Text("Tipo: ${snapshot.data!.tipo}"),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  Text("Habilidades: ${snapshot.data!.habilidades}"),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  Text("Experiência Base: ${snapshot.data!.experiencia}"),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  Text("Forma: ${snapshot.data!.forma}"),
+                  SizedBox(
+                    height: 24,
+                  ),
                 ],
               ),
             ),

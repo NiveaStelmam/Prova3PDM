@@ -85,7 +85,7 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Pokemon` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nome` TEXT NOT NULL, `imageUrl` TEXT NOT NULL, `peso` INTEGER NOT NULL, `altura` INTEGER NOT NULL, `tipo` TEXT NOT NULL)');
+            'CREATE TABLE IF NOT EXISTS `Pokemon` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nome` TEXT NOT NULL, `imageUrl` TEXT NOT NULL, `peso` INTEGER NOT NULL, `altura` INTEGER NOT NULL, `tipo` TEXT NOT NULL, `habilidades` TEXT, `experiencia` INTEGER, `forma` TEXT)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -113,7 +113,10 @@ class _$PokemonDao extends PokemonDao {
                   'imageUrl': item.imageUrl,
                   'peso': item.peso,
                   'altura': item.altura,
-                  'tipo': item.tipo
+                  'tipo': item.tipo,
+                  'habilidades': item.habilidades,
+                  'experiencia': item.experiencia,
+                  'forma': item.forma
                 },
             changeListener),
         _pokemonDeletionAdapter = DeletionAdapter(
@@ -126,7 +129,10 @@ class _$PokemonDao extends PokemonDao {
                   'imageUrl': item.imageUrl,
                   'peso': item.peso,
                   'altura': item.altura,
-                  'tipo': item.tipo
+                  'tipo': item.tipo,
+                  'habilidades': item.habilidades,
+                  'experiencia': item.experiencia,
+                  'forma': item.forma
                 },
             changeListener);
 
@@ -149,7 +155,10 @@ class _$PokemonDao extends PokemonDao {
             imageUrl: row['imageUrl'] as String,
             peso: row['peso'] as int,
             altura: row['altura'] as int,
-            tipo: row['tipo'] as String));
+            tipo: row['tipo'] as String,
+            habilidades: row['habilidades'] as String?,
+            experiencia: row['experiencia'] as int?,
+            forma: row['forma'] as String?));
   }
 
   @override
@@ -161,7 +170,10 @@ class _$PokemonDao extends PokemonDao {
             imageUrl: row['imageUrl'] as String,
             peso: row['peso'] as int,
             altura: row['altura'] as int,
-            tipo: row['tipo'] as String),
+            tipo: row['tipo'] as String,
+            habilidades: row['habilidades'] as String?,
+            experiencia: row['experiencia'] as int?,
+            forma: row['forma'] as String?),
         arguments: [id],
         queryableName: 'Pokemon',
         isView: false);

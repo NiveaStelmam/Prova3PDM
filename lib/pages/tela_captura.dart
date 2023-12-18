@@ -27,7 +27,7 @@ class _TelaCapturaState extends State<TelaCaptura> {
     super.initState();
     _verificarConexao();
     pokemonListAPI = _sortearPokemons();
-    pokemonCapturados = widget.pokemonDao.findAllPokemons();
+    // pokemonCapturados = widget.pokemonDao.findAllPokemons();
   }
 
   Future<void> _verificarConexao() async {
@@ -93,6 +93,20 @@ class _TelaCapturaState extends State<TelaCaptura> {
         final int peso = pokemonData['weight'];
         final int altura = pokemonData['height'];
         final String tipo = pokemonData['types'][0]['type']['name'];
+        //print('TESTEEEEEEEEEEE');
+        print(pokemonData['abilities'][0]);
+        String habilidades = "";
+
+        for (var element in pokemonData['abilities']) {
+          habilidades += element["ability"]["name"] + ", ";
+        }
+
+        final int experiencia = pokemonData['base_experience'] ?? 0;
+
+        String forma = "";
+        for (var element in pokemonData['forms']) {
+          forma += element['name'];
+        }
 
         Pokemon pokemon = Pokemon(
             id: id,
@@ -100,7 +114,10 @@ class _TelaCapturaState extends State<TelaCaptura> {
             imageUrl: imageUrl,
             peso: peso,
             altura: altura,
-            tipo: tipo);
+            tipo: tipo,
+            habilidades: habilidades,
+            experiencia: experiencia,
+            forma: forma);
         pokemonSorteio.add(pokemon);
       } else {
         print('Erro ao obter dados do Pokémon $id');
