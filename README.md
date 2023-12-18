@@ -1,4 +1,4 @@
-# Prova 3 - Programação Para Dispositivos Móveis
+# Prova 3 - Programação para Dispositivos Móveis
 
 Grupo: Nivea Stelmam e Priscilla Melo.
 
