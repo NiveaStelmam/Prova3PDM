@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.purple[50],
+        scaffoldBackgroundColor: Colors.orange[50],
       ),
       home: MaterialAppHome(
         pokemonDao: pokemonDao,
@@ -47,8 +47,8 @@ class MaterialAppHome extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Pokemon App"),
-          backgroundColor: Colors.purple,
+          title: const Text("Pokémon App"),
+          backgroundColor: Colors.deepOrange.shade800,
           actions: [
             IconButton(
               onPressed: () {

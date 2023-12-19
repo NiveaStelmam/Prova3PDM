@@ -30,7 +30,7 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
           return Scaffold(
             appBar: AppBar(
               title: Text("Soltar Pokemon"),
-              backgroundColor: Colors.purple,
+              backgroundColor: Colors.deepOrange.shade800,
             ),
             body: Center(
               child: Column(
@@ -39,35 +39,117 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
                   Image.network(
                     _pokemon.imageUrl, // Adicione a URL da imagem aqui
                     width: 300,
-                    height: 300,
+                    height: 200,
                     fit: BoxFit.cover,
                   ),
                   SizedBox(
                     height: 100,
                   ),
-                  Text("Nome: ${_pokemon.nome}"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Nome:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 8),
+                      Text("${snapshot.data!.nome}"),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Altura:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 8),
+                      Text("${_height_cm}cm"),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Peso:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 8),
+                      Text("${_weight_kg}kg"),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Tipo:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 8),
+                      Text("${snapshot.data!.tipo}"),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Habilidades:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 8),
+                      Text("${snapshot.data!.habilidades}"),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Experiência Base:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 8),
+                      Text("${snapshot.data!.experiencia}"),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Forma:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 8),
+                      Text("${snapshot.data!.forma}"),
+                    ],
+                  ),
                   SizedBox(
                     height: 24,
-                  ),
-                  Text("Altura: ${_height_cm}cm"),
-                  SizedBox(
-                    height: 24,
-                  ),
-                  Text("Peso: ${_weight_kg}kg"),
-                  SizedBox(
-                    height: 24,
-                  ),
-                  Text("Tipo: ${_pokemon.tipo}"),
-                  SizedBox(
-                    height: 36,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.red.shade300),
+                          backgroundColor: MaterialStatePropertyAll(
+                              Colors.red), // cor antiga - Colors.red.shade300
                           minimumSize: MaterialStatePropertyAll(Size(54, 48)),
                         ),
                         onPressed: () {
@@ -77,8 +159,8 @@ class _TelaSoltarPokemonState extends State<TelaSoltarPokemon> {
                       ),
                       ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.green.shade200),
+                          backgroundColor: MaterialStatePropertyAll(Colors
+                              .green), // cor antiga - Colors.green.shade200
                           minimumSize: MaterialStatePropertyAll(Size(54, 48)),
                         ),
                         onPressed: () {

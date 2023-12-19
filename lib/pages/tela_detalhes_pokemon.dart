@@ -27,7 +27,7 @@ class _TelaDetalhesPokemonState extends State<TelaDetalhesPokemon> {
           return Scaffold(
             appBar: AppBar(
               title: Text("Detalhes do Pokemon"),
-              backgroundColor: Colors.purple,
+              backgroundColor: Colors.deepOrange.shade800,
             ),
             body: Center(
               child: Column(
@@ -42,31 +42,101 @@ class _TelaDetalhesPokemonState extends State<TelaDetalhesPokemon> {
                   SizedBox(
                     height: 100,
                   ),
-                  Text("Nome: ${snapshot.data!.nome}"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Nome:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 1),
+                      Text("${snapshot.data!.nome}"),
+                    ],
+                  ),
                   SizedBox(
                     height: 24,
                   ),
-                  Text("Altura: ${height_cm}cm"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Altura:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 8),
+                      Text("${height_cm}cm"),
+                    ],
+                  ),
                   SizedBox(
                     height: 24,
                   ),
-                  Text("Peso: ${weight_kg}kg"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Peso:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 8),
+                      Text("${weight_kg}kg"),
+                    ],
+                  ),
                   SizedBox(
                     height: 24,
                   ),
-                  Text("Tipo: ${snapshot.data!.tipo}"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Tipo:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 8),
+                      Text("${snapshot.data!.tipo}"),
+                    ],
+                  ),
                   SizedBox(
                     height: 24,
                   ),
-                  Text("Habilidades: ${snapshot.data!.habilidades}"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Habilidades:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 8),
+                      Text("${snapshot.data!.habilidades}"),
+                    ],
+                  ),
                   SizedBox(
                     height: 24,
                   ),
-                  Text("Experiência Base: ${snapshot.data!.experiencia}"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Experiência Base:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 8),
+                      Text("${snapshot.data!.experiencia}"),
+                    ],
+                  ),
                   SizedBox(
                     height: 24,
                   ),
-                  Text("Forma: ${snapshot.data!.forma}"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Forma:",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 8),
+                      Text("${snapshot.data!.forma}"),
+                    ],
+                  ),
                   SizedBox(
                     height: 24,
                   ),

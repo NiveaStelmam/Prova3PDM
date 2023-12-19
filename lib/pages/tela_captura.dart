@@ -25,13 +25,15 @@ class _TelaCapturaState extends State<TelaCaptura> {
   @override
   void initState() {
     super.initState();
-    _verificarConexao();
+    _verificarConexao(); // aqui chama o metodo pra verificar a conexão assim que a tela é iniciada
     pokemonListAPI = _sortearPokemons();
     // pokemonCapturados = widget.pokemonDao.findAllPokemons();
   }
 
   Future<void> _verificarConexao() async {
-    var connectivityResult = await Connectivity().checkConnectivity();
+    // vai verificar a conexão com a internet e caso
+    var connectivityResult = await Connectivity()
+        .checkConnectivity(); // usa a classe Connectivity para verificar o estado da conexao e armazena o resultado na  variavel isConnected, se tiver internet a variavel pokemonListApi é atualizada e chama o metodo pra sortear os 6 pokemons
     setState(() {
       isConnected = connectivityResult != ConnectivityResult.none;
       pokemonListAPI = _sortearPokemons();
@@ -46,6 +48,7 @@ class _TelaCapturaState extends State<TelaCaptura> {
         return snapshot.hasData && isConnected
             ? Scaffold(
                 body: ListView.builder(
+                // adição do listView - questão 3
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   return PokemonItem(
@@ -66,8 +69,8 @@ class _TelaCapturaState extends State<TelaCaptura> {
                             onPressed: () => _verificarConexao(),
                             child: Text("Atualize a conexão"),
                             style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.purple))),
+                                backgroundColor: MaterialStatePropertyAll(
+                                    Colors.deepOrange.shade800))),
                       ],
                     ),
                   )
@@ -79,14 +82,17 @@ class _TelaCapturaState extends State<TelaCaptura> {
   }
 
   Future<List<Pokemon>> _sortearPokemons() async {
-    List<Pokemon> pokemonSorteio = [];
+    List<Pokemon> pokemonSorteio =
+        []; // inicia vazia e armazenara os pokemnos sorteados aleatoriamente
     sorteios = List.generate(6, (index) => Random().nextInt(1018));
 
     for (int id in sorteios) {
+      // iterar sobre os id para buscar dados dos pokemnos na api
       final response =
           await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$id/'));
       if (response.statusCode == 200) {
-        Map<String, dynamic> pokemonData = json.decode(response.body);
+        Map<String, dynamic> pokemonData = json.decode(response
+            .body); // decodifica o corpo da resposta do json no map pokemonData
         final int id = pokemonData['id'];
         final String nome = pokemonData['name'];
         final String imageUrl = pokemonData['sprites']['front_default'];
@@ -140,14 +146,14 @@ class PokemonItem extends StatefulWidget {
 }
 
 class _PokemonItemState extends State<PokemonItem> {
-  Color _colorButton = Colors.purple;
+  Color _colorButton = Colors.deepOrange.shade800;
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4, // sombra do card
-      margin: EdgeInsets.all(8), // margem ao redor do card
+      elevation: 4,
+      margin: EdgeInsets.all(8),
       child: ListTile(
-        contentPadding: EdgeInsets.all(16), // preenchimento interno ao ListTile
+        contentPadding: EdgeInsets.all(16),
         title: Text(
           widget.pokemon.nome,
           style: TextStyle(
@@ -158,7 +164,7 @@ class _PokemonItemState extends State<PokemonItem> {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 8), // espaço entre o título e os detalhes
+            SizedBox(height: 8),
             Text('ID: ${widget.pokemon.id}'),
           ],
         ),
@@ -170,9 +176,10 @@ class _PokemonItemState extends State<PokemonItem> {
         ),
         trailing: ElevatedButton(
           onPressed: () {
-            widget.dao.insertPokemon(widget.pokemon);
+            widget.dao.insertPokemon(
+                widget.pokemon); // insere o pokemon no banco de dados
             setState(() {
-              _colorButton = Colors.grey;
+              _colorButton = Colors.grey; // altera a cor do botao pra cinza
             });
           },
           child: Icon(Icons.catching_pokemon),

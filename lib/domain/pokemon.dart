@@ -1,5 +1,6 @@
 import 'package:floor/floor.dart';
 
+////////// ---------- Questão 2 ---------- //////////
 @entity
 class Pokemon {
   @PrimaryKey(autoGenerate: true)

@@ -8,7 +8,7 @@ class TelaSobre extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Sobre Nós"),
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.deepOrange.shade800,
       ),
       body: const Center(
         child: Column(
